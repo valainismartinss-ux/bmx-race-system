@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMX Race System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+    <h1>BMX Race System</h1>
+
+    <ul>
+        <li><a href="/">Sākums</a></li>
+        <li><a href="/riders">Braucēji</a></li>
+        <li><a href="/races">Sacensības</a></li>
+        <li><a href="/results">Rezultāti</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

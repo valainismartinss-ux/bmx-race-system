@@ -49,6 +49,16 @@ def init_db():
             FOREIGN KEY (race_id) REFERENCES races (id)
         )
     """)
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS registrations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        rider_name TEXT NOT NULL,
+        team_name TEXT NOT NULL,
+        race_id INTEGER,
+        email TEXT NOT NULL,
+        FOREIGN KEY (race_id) REFERENCES races (id)
+    )
+    """)
 
     team_count = conn.execute("SELECT COUNT(*) FROM teams").fetchone()[0]
 
@@ -84,24 +94,41 @@ def riders():
     return render_template("riders.html", riders=riders)
 @app.route("/add_rider", methods=["GET", "POST"])
 def add_rider():
-    conn = get_db_connection()
-    teams = conn.execute("SELECT * FROM teams").fetchall()
-
     if request.method == "POST":
         name = request.form["name"]
         age = request.form["age"]
-        team_id = request.form["team_id"]
+        team_name = request.form["team_name"]
+
+        conn = get_db_connection()
+
+        existing_team = conn.execute(
+            "SELECT id FROM teams WHERE name = ?",
+            (team_name,)
+        ).fetchone()
+
+        if existing_team:
+            team_id = existing_team["id"]
+        else:
+            conn.execute(
+                "INSERT INTO teams (name, city) VALUES (?, ?)",
+                (team_name, "Nav norādīts")
+            )
+            team_id = conn.execute(
+                "SELECT id FROM teams WHERE name = ?",
+                (team_name,)
+            ).fetchone()["id"]
 
         conn.execute(
             "INSERT INTO riders (name, age, team_id) VALUES (?, ?, ?)",
             (name, age, team_id)
         )
+
         conn.commit()
         conn.close()
+
         return redirect("/riders")
 
-    conn.close()
-    return render_template("add_rider.html", teams=teams)
+    return render_template("add_rider.html")
 
 
 @app.route("/edit_rider/<int:id>", methods=["GET", "POST"])
@@ -158,7 +185,29 @@ def results():
 @app.route("/about")
 def about():
     return render_template("about.html")
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    conn = get_db_connection()
+    races = conn.execute("SELECT * FROM races").fetchall()
 
+    if request.method == "POST":
+        rider_name = request.form["rider_name"]
+        team_name = request.form["team_name"]
+        email = request.form["email"]
+        race_id = request.form["race_id"]
+
+        conn.execute(
+            "INSERT INTO registrations (rider_name, team_name, email, race_id) VALUES (?, ?, ?, ?)",
+            (rider_name, team_name, email, race_id)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/races")
+
+    conn.close()
+    return render_template("register.html", races=races)
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)

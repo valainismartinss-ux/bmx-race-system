@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Pieteikties sacensībām</h2>
+
+<form method="POST" class="card">
+    <label>Braucēja vārds:</label>
+    <input type="text" name="rider_name" required>
+
+    <label>Komanda:</label>
+    <input type="text" name="team_name" required>
+
+    <label>E-pasts:</label>
+    <input type="email" name="email" required>
+
+    <label>Sacensības:</label>
+    <select name="race_id">
+        {% for race in races %}
+        <option value="{{ race.id }}">{{ race.title }} - {{ race.race_date }} / {{ race.location }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Pieteikties</button>
+</form>
+
+{% endblock %}

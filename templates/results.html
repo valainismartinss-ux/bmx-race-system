@@ -4,13 +4,13 @@
 
 <h2>Rezultāti</h2>
 
+{% for result in results %}
 <div class="card">
-    <h3>Riga BMX Cup</h3>
-
-    <ol>
-        <li>Martins Valainis</li>
-        <li>Jānis Ozols</li>
-    </ol>
+    <h3>{{ result.race_title }}</h3>
+    <p>Vieta: {{ result.place }}</p>
+    <p>Braucējs: {{ result.rider_name }}</p>
+    <p>Punkti: {{ result.points }}</p>
 </div>
+{% endfor %}
 
 {% endblock %}

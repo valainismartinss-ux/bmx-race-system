@@ -4,14 +4,12 @@
 
 <h2>Sacensības</h2>
 
+{% for race in races %}
 <div class="card">
-    <h3>Riga BMX Cup</h3>
-    <p>Datums: 15.05.2026</p>
+    <h3>{{ race.title }}</h3>
+    <p>Datums: {{ race.race_date }}</p>
+    <p>Vieta: {{ race.location }}</p>
 </div>
-
-<div class="card">
-    <h3>Latvia Open</h3>
-    <p>Datums: 01.06.2026</p>
-</div>
+{% endfor %}
 
 {% endblock %}

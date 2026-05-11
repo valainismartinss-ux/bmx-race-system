@@ -4,14 +4,12 @@
 
 <h2>Braucēji</h2>
 
+{% for rider in riders %}
 <div class="card">
-    <h3>Martins Valainis</h3>
-    <p>Komanda: MX Team</p>
+    <h3>{{ rider.name }}</h3>
+    <p>Vecums: {{ rider.age }}</p>
+    <p>Komanda: {{ rider.team_name }}</p>
 </div>
-
-<div class="card">
-    <h3>Jānis Ozols</h3>
-    <p>Komanda: Speed Riders</p>
-</div>
+{% endfor %}
 
 {% endblock %}

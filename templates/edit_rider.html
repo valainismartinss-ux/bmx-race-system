@@ -12,11 +12,7 @@
     <input type="number" name="age" value="{{ rider.age }}" required>
 
     <label>Komanda:</label>
-    <select name="team_id">
-        {% for team in teams %}
-        <option value="{{ team.id }}">{{ team.name }}</option>
-        {% endfor %}
-    </select>
+    <input type="text" name="team_name" value="{{ rider.team_name }}" required>
 
     <button type="submit">Saglabāt</button>
 </form>

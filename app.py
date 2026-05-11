@@ -151,24 +151,48 @@ def add_rider():
 @app.route("/edit_rider/<int:id>", methods=["GET", "POST"])
 def edit_rider(id):
     conn = get_db_connection()
-    rider = conn.execute("SELECT * FROM riders WHERE id = ?", (id,)).fetchone()
-    teams = conn.execute("SELECT * FROM teams").fetchall()
+
+    rider = conn.execute("""
+        SELECT riders.id, riders.name, riders.age, teams.name AS team_name
+        FROM riders
+        LEFT JOIN teams ON riders.team_id = teams.id
+        WHERE riders.id = ?
+    """, (id,)).fetchone()
 
     if request.method == "POST":
         name = request.form["name"]
         age = request.form["age"]
-        team_id = request.form["team_id"]
+        team_name = request.form["team_name"]
+
+        existing_team = conn.execute(
+            "SELECT id FROM teams WHERE name = ?",
+            (team_name,)
+        ).fetchone()
+
+        if existing_team:
+            team_id = existing_team["id"]
+        else:
+            conn.execute(
+                "INSERT INTO teams (name, city) VALUES (?, ?)",
+                (team_name, "Nav norādīts")
+            )
+            team_id = conn.execute(
+                "SELECT id FROM teams WHERE name = ?",
+                (team_name,)
+            ).fetchone()["id"]
 
         conn.execute(
             "UPDATE riders SET name = ?, age = ?, team_id = ? WHERE id = ?",
             (name, age, team_id, id)
         )
+
         conn.commit()
         conn.close()
+
         return redirect("/riders")
 
     conn.close()
-    return render_template("edit_rider.html", rider=rider, teams=teams)
+    return render_template("edit_rider.html", rider=rider)
 
 
 @app.route("/delete_rider/<int:id>")

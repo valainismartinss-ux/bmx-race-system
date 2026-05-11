@@ -35,3 +35,28 @@ nav a {
     padding: 20px;
     border-radius: 10px;
 }
+.button, button {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    border: none;
+    margin: 5px 5px 5px 0;
+    cursor: pointer;
+}
+
+.danger {
+    background-color: darkred;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, select {
+    padding: 10px;
+}

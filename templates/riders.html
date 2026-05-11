@@ -4,11 +4,16 @@
 
 <h2>Braucēji</h2>
 
+<a class="button" href="/add_rider">Pievienot braucēju</a>
+
 {% for rider in riders %}
 <div class="card">
     <h3>{{ rider.name }}</h3>
     <p>Vecums: {{ rider.age }}</p>
     <p>Komanda: {{ rider.team_name }}</p>
+
+    <a class="button" href="/edit_rider/{{ rider.id }}">Rediģēt</a>
+    <a class="button danger" href="/delete_rider/{{ rider.id }}">Dzēst</a>
 </div>
 {% endfor %}
 

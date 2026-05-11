@@ -82,6 +82,58 @@ def riders():
     """).fetchall()
     conn.close()
     return render_template("riders.html", riders=riders)
+@app.route("/add_rider", methods=["GET", "POST"])
+def add_rider():
+    conn = get_db_connection()
+    teams = conn.execute("SELECT * FROM teams").fetchall()
+
+    if request.method == "POST":
+        name = request.form["name"]
+        age = request.form["age"]
+        team_id = request.form["team_id"]
+
+        conn.execute(
+            "INSERT INTO riders (name, age, team_id) VALUES (?, ?, ?)",
+            (name, age, team_id)
+        )
+        conn.commit()
+        conn.close()
+        return redirect("/riders")
+
+    conn.close()
+    return render_template("add_rider.html", teams=teams)
+
+
+@app.route("/edit_rider/<int:id>", methods=["GET", "POST"])
+def edit_rider(id):
+    conn = get_db_connection()
+    rider = conn.execute("SELECT * FROM riders WHERE id = ?", (id,)).fetchone()
+    teams = conn.execute("SELECT * FROM teams").fetchall()
+
+    if request.method == "POST":
+        name = request.form["name"]
+        age = request.form["age"]
+        team_id = request.form["team_id"]
+
+        conn.execute(
+            "UPDATE riders SET name = ?, age = ?, team_id = ? WHERE id = ?",
+            (name, age, team_id, id)
+        )
+        conn.commit()
+        conn.close()
+        return redirect("/riders")
+
+    conn.close()
+    return render_template("edit_rider.html", rider=rider, teams=teams)
+
+
+@app.route("/delete_rider/<int:id>")
+def delete_rider(id):
+    conn = get_db_connection()
+    conn.execute("DELETE FROM riders WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    return redirect("/riders")
 
 @app.route("/races")
 def races():

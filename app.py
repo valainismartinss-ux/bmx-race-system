@@ -155,6 +155,10 @@ def results():
     conn.close()
     return render_template("results.html", results=results)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)

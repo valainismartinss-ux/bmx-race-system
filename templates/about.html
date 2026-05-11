@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Par projektu</h2>
+
+<div class="card">
+    <h3>Projekta apraksts</h3>
+    <p>Autors: Martins Valainis</p>
+    <p>Mērķis: izveidot BMX sacensību pārvaldības mājaslapu, kurā var apskatīt braucējus, sacensības un rezultātus.</p>
+    <p>Izmantotās tehnoloģijas: Python, Flask, SQLite, HTML, CSS un Jinja.</p>
+</div>
+
+<div class="card">
+    <h3>Datubāzes struktūra</h3>
+    <p>Projektā izmantotas 4 tabulas:</p>
+    <ul>
+        <li><b>teams</b> – komandas</li>
+        <li><b>riders</b> – braucēji, saistīti ar komandām</li>
+        <li><b>races</b> – sacensības</li>
+        <li><b>results</b> – rezultāti, saistīti ar braucējiem un sacensībām</li>
+    </ul>
+</div>
+
+{% endblock %}

@@ -69,12 +69,29 @@ def init_db():
         conn.execute("INSERT INTO riders (name, age, team_id) VALUES ('Martins Valainis', 18, 1)")
         conn.execute("INSERT INTO riders (name, age, team_id) VALUES ('Jānis Ozols', 17, 2)")
 
-        conn.execute("INSERT INTO races (title, race_date, location) VALUES ('Riga BMX Cup', '2026-05-15', 'Rīga')")
-        conn.execute("INSERT INTO races (title, race_date, location) VALUES ('Latvia Open', '2026-06-01', 'Jelgava')")
+        races = [
+            ("Latvijas BMX kausa 1. posms", "2026-04-18", "Jelgava"),
+            ("Latvijas BMX kausa 2. posms", "2026-04-19", "Jelgava"),
+            ("Latvijas BMX kausa 3. posms", "2026-05-09", "Mārupe"),
+            ("Latvijas BMX kausa 4. posms", "2026-05-10", "Mārupe"),
+            ("Latvijas BMX čempionāts", "2026-06-06", "Valmiera"),
+            ("Latvijas BMX kausa 5. posms", "2026-06-07", "Valmiera"),
+            ("Latvijas BMX kausa 6. posms", "2026-07-04", "Smiltene"),
+            ("Latvijas BMX kausa 7. posms", "2026-07-05", "Smiltene"),
+            ("Latvijas BMX kausa 8. posms", "2026-08-08", "Rīga"),
+            ("Latvijas BMX kausa 9. posms", "2026-08-09", "Rīga"),
+            ("Latvijas BMX kausa 10. posms", "2026-09-05", "Madona"),
+            ("Latvijas BMX kausa 11. posms", "2026-09-06", "Madona")
+        ]
+
+        for race in races:
+            conn.execute(
+                "INSERT INTO races (title, race_date, location) VALUES (?, ?, ?)",
+                race
+            )
 
         conn.execute("INSERT INTO results (rider_id, race_id, place, points) VALUES (1, 1, 1, 25)")
         conn.execute("INSERT INTO results (rider_id, race_id, place, points) VALUES (2, 1, 2, 18)")
-
     conn.commit()
     conn.close()
 

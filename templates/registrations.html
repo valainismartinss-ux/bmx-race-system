@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Sacensību pieteikumi</h2>
+
+{% for registration in registrations %}
+<div class="card">
+    <h3>{{ registration.rider_name }}</h3>
+
+    <p><b>Komanda:</b> {{ registration.team_name }}</p>
+    <p><b>Sacensības:</b> {{ registration.race_title }}</p>
+    <p><b>E-pasts:</b> {{ registration.email }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}

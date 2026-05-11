@@ -1,90 +1,96 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #1e293b;
 }
 
 nav {
-    background-color: black;
+    background: rgba(15, 23, 42, 0.95);
     color: white;
-    padding: 15px;
+    padding: 22px 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav h1 {
     margin: 0;
+    font-size: 30px;
+    letter-spacing: 1px;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 18px;
+    margin: 0;
     padding: 0;
 }
 
 nav a {
-    color: white;
+    color: #e2e8f0;
     text-decoration: none;
+    font-weight: bold;
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+nav a:hover {
+    background-color: #334155;
+    color: white;
 }
 
 .container {
+    max-width: 1200px;
+    margin: 35px auto;
     padding: 30px;
+    background: rgba(248, 250, 252, 0.96);
+    border-radius: 24px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
 }
 
 .card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    margin-top: 20px;
+    box-shadow: 0 8px 22px rgba(15,23,42,0.12);
+    border-left: 5px solid #2563eb;
 }
+
+.card:hover {
+    transform: translateY(-3px);
+    transition: 0.25s;
+}
+
 .button, button {
-    display: inline-block;
-    background-color: black;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
     color: white;
-    padding: 10px 15px;
-    border-radius: 6px;
+    padding: 12px 20px;
+    border-radius: 10px;
     text-decoration: none;
     border: none;
-    margin: 5px 5px 5px 0;
+    font-weight: bold;
     cursor: pointer;
+    display: inline-block;
+    margin: 6px 6px 6px 0;
+}
+
+.button:hover, button:hover {
+    background: linear-gradient(90deg, #1d4ed8, #2563eb);
+    transform: scale(1.03);
+    transition: 0.2s;
 }
 
 .danger {
-    background-color: darkred;
+    background: linear-gradient(90deg, #991b1b, #dc2626);
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-input, select {
-    padding: 10px;
-}
-@media (max-width: 700px) {
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .container {
-        padding: 15px;
-    }
-
-    .card {
-        padding: 15px;
-    }
-
-    .button, button {
-        width: 100%;
-        text-align: center;
-    }
-}
 .hero {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    margin-top: 30px;
+    gap: 35px;
     flex-wrap: wrap;
 }
 
@@ -93,61 +99,75 @@ input, select {
 }
 
 .hero-text h2 {
-    font-size: 48px;
-    margin-bottom: 15px;
+    font-size: 52px;
+    margin-bottom: 10px;
+    color: #0f172a;
 }
 
 .hero-text p {
     font-size: 18px;
-    color: #444;
-    line-height: 1.6;
+    line-height: 1.7;
+    color: #475569;
 }
 
 .hero img {
-    width: 450px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    width: 420px;
+    border-radius: 22px;
+    box-shadow: 0 12px 28px rgba(15,23,42,0.35);
 }
 
 .stats {
     display: flex;
     gap: 20px;
-    margin-top: 40px;
+    margin-top: 30px;
     flex-wrap: wrap;
 }
 
 .stat-card {
     flex: 1;
-    min-width: 180px;
     text-align: center;
+    min-width: 180px;
 }
 
 .stat-card h3 {
-    font-size: 42px;
+    font-size: 48px;
+    color: #2563eb;
     margin: 0;
 }
 
-.card {
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-nav {
+form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 12px;
 }
 
-nav ul {
-    align-items: center;
+input, select {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 15px;
 }
 
-nav a:hover {
-    color: #bbbbbb;
+input:focus, select:focus {
+    outline: none;
+    border-color: #2563eb;
 }
 
-@media (max-width: 700px) {
-    .hero {
+footer {
+    color: #e2e8f0;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 800px) {
+    nav {
         flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .hero img {
@@ -155,6 +175,11 @@ nav a:hover {
     }
 
     .hero-text h2 {
-        font-size: 34px;
+        font-size: 36px;
+    }
+
+    .container {
+        margin: 15px;
+        padding: 20px;
     }
 }

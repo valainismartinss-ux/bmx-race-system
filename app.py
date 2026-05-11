@@ -97,7 +97,22 @@ def init_db():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    conn = get_db_connection()
+
+    riders_count = conn.execute("SELECT COUNT(*) FROM riders").fetchone()[0]
+    races_count = conn.execute("SELECT COUNT(*) FROM races").fetchone()[0]
+    teams_count = 4
+    registrations_count = conn.execute("SELECT COUNT(*) FROM registrations").fetchone()[0]
+
+    conn.close()
+
+    return render_template(
+        "index.html",
+        riders_count=riders_count,
+        races_count=races_count,
+        teams_count=teams_count,
+        registrations_count=registrations_count
+    )
 
 @app.route("/riders")
 def riders():
@@ -249,6 +264,22 @@ def register():
 
     conn.close()
     return render_template("register.html", races=races)
+@app.route("/registrations")
+def registrations():
+    conn = get_db_connection()
+
+    registrations = conn.execute("""
+        SELECT registrations.*, races.title AS race_title
+        FROM registrations
+        JOIN races ON registrations.race_id = races.id
+    """).fetchall()
+
+    conn.close()
+
+    return render_template(
+        "registrations.html",
+        registrations=registrations
+    )
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)
